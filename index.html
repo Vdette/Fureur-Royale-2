@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fureur Royale - Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <style>html { scroll-behavior: smooth; }</style>
+</head>
+<body class="bg-gray-100 font-sans">
+  <header class="bg-blue-900 text-white shadow p-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <div class="flex items-center space-x-4">
+        <img src="assets/logo.png" alt="Logo Clan" class="h-12 w-12" />
+        <h1 class="text-2xl font-bold">Fureur Royale</h1>
+      </div>
+      <nav>
+        <ul class="flex gap-4 text-sm">
+          <li><a href="#members" class="hover:underline">Membres</a></li>
+          <li><a href="#wars" class="hover:underline">Guerres</a></li>
+          <li><a href="#rules" class="hover:underline">Règles</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="p-6 max-w-7xl mx-auto space-y-16">
+    <section id="members">
+      <h2 class="text-xl font-bold mb-4">Liste des membres</h2>
+      <div class="overflow-x-auto">
+        <table class="min-w-full border bg-white text-sm">
+          <thead class="bg-blue-700 text-white" id="membersHead"></thead>
+          <tbody id="membersTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="wars">
+      <h2 class="text-xl font-bold mb-4">Historique des Guerres</h2>
+      <div class="overflow-x-auto">
+        <table class="min-w-full border bg-white text-sm">
+          <thead class="bg-red-600 text-white" id="warsHead"></thead>
+          <tbody id="warsTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="rules" class="bg-white p-6 rounded shadow">
+      <h2 class="text-xl font-bold mb-4">Règles du Clan</h2>
+      <ul class="list-disc pl-6 space-y-2">
+        <li>Respect des membres et entraide obligatoire</li>
+        <li>Participation aux guerres et dons réguliers</li>
+        <li>Attaques obligatoires en guerre de clan</li>
+        <li>Respect des stratégies décidées par les chefs</li>
+        <li>Inactivité prolongée = exclusion</li>
+      </ul>
+    </section>
+  </main>
+
+  <script>
+    async function loadCSV(url) {
+      const response = await fetch(url);
+      const text = await response.text();
+      const delimiter = text.includes(';') ? ';' : ',';
+      const lines = text.trim().split(/\r?\n/);
+      const headerLine = lines.shift();
+      const headers = headerLine.split(delimiter);
+      const data = lines.map(line => {
+        const values = line.split(delimiter);
+        return headers.reduce((obj, key, i) => {
+          obj[key.trim()] = values[i]?.trim() || "";
+          return obj;
+        }, {});
+      });
+      return { headers, data };
+    }
+
+    async function renderTables() {
+      const membersURL = "data/membres.csv";
+      const warsURL = "data/guerres.csv";
+
+      try {
+        const { headers: memberHeaders, data: members } = await loadCSV(membersURL);
+        const { headers: warHeaders, data: wars } = await loadCSV(warsURL);
+
+        const memberHead = document.getElementById("membersHead");
+        const memberTable = document.getElementById("membersTable");
+        const warHead = document.getElementById("warsHead");
+        const warTable = document.getElementById("warsTable");
+
+        memberHead.innerHTML = "<tr>" + memberHeaders.map(h => `<th class="border p-2">${h}</th>`).join("") + "</tr>";
+        members.forEach(row => {
+          memberTable.innerHTML += "<tr>" + memberHeaders.map(h => `<td class="border p-2">${row[h]}</td>`).join("") + "</tr>";
+        });
+
+        warHead.innerHTML = "<tr>" + warHeaders.map(h => `<th class="border p-2">${h}</th>`).join("") + "</tr>";
+        wars.forEach(row => {
+          warTable.innerHTML += "<tr>" + warHeaders.map(h => `<td class="border p-2">${row[h]}</td>`).join("") + "</tr>";
+        });
+
+      } catch (err) {
+        console.error("Erreur de chargement :", err);
+      }
+    }
+
+    renderTables();
+  </script>
+</body>
+</html>
