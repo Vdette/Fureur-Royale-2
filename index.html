@@ -1,76 +1,107 @@
+<!-- HTML mis à jour avec : Page profil joueur, filtres dynamiques, section statistiques -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fureur Royale - Clan Dashboard</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-  <title>Fureur Royale - Statistiques de Clan</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    html { scroll-behavior: smooth; }
-    .card { background: white; border-radius: 1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    body { background-color: #1e1e2f; color: white; }
+    .navbar-brand img { height: 40px; }
+    .nav-link { color: #ccc; }
+    .nav-link.active, .nav-link:hover { color: white; }
+    .card { background-color: #2a2a40; border: none; border-radius: 10px; }
+    th, td { vertical-align: middle !important; }
+    .hdv-img { width: 32px; height: 32px; }
+    .clickable { cursor: pointer; color: #0af; text-decoration: underline; }
   </style>
 </head>
-<body class="bg-gray-100 text-gray-900">
-  <header class="bg-gray-900 text-white shadow-md p-4 sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto flex justify-between items-center">
-      <div class="flex items-center space-x-4">
-        <img src="assets/logo.jpg" alt="Logo COC" class="h-12 w-26" />
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="https://i.pinimg.com/736x/35/67/99/35679966d3d9aa215173e07944c3ad66.jpg" alt="Logo Clan">
+        Fureur Royale
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#overview">Aperçu</a></li>
+          <li class="nav-item"><a class="nav-link" href="#members">Membres</a></li>
+          <li class="nav-item"><a class="nav-link" href="#wars">Guerres</a></li>
+          <li class="nav-item"><a class="nav-link" href="#rules">Règles</a></li>
+          <li class="nav-item"><a class="nav-link" href="#stats">Statistiques</a></li>
+        </ul>
       </div>
-      <div class="flex items-center space-x-6">
-        <img src="assets/insigne.jpg" alt="Logo Clan" class="h-12 w-12" />
-        <h1 class="text-2xl font-bold">Fureur Royale</h1>
-      </div>
-      <nav class="text-sm space-x-4">
-        <a href="#infos" class="hover:underline">Clan</a>
-        <a href="#members" class="hover:underline">Membres</a>
-        <a href="#wars" class="hover:underline">Guerres</a>
-        <a href="#rules" class="hover:underline">Règles</a>
-      </nav>
     </div>
-  </header>
+  </nav>
 
-  <main class="max-w-7xl mx-auto p-4 space-y-16">
-    <section id="infos" class="card p-6 bg-gray-800 text-white rounded-lg shadow-lg">
-      <h2 class="text-xl font-bold mb-4">Informations du Clan</h2>
-      <div id="clanInfo" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-    </section>
-
-    <section id="members" class="card p-6">
-      <h2 class="text-xl font-bold mb-4">Membres du Clan</h2>
-      <div class="overflow-x-auto">
-        <table class="min-w-full text-sm">
-          <thead class="bg-gray-800 text-white" id="membersHead"></thead>
-          <tbody id="membersTable"></tbody>
-        </table>
+  <main class="container py-5">
+    <section id="overview" class="mb-5">
+      <div class="card p-4">
+        <h2 class="h4 mb-4">Aperçu du Clan</h2>
+        <div id="clanInfo" class="row g-4"></div>
       </div>
     </section>
 
-    <section id="wars" class="card p-6">
-      <h2 class="text-xl font-bold mb-4">Historique des Guerres</h2>
-      <div class="overflow-x-auto">
-        <table class="min-w-full text-sm">
-          <thead class="bg-gray-700 text-white" id="warsHead"></thead>
-          <tbody id="warsTable"></tbody>
-        </table>
+    <section id="members" class="mb-5">
+      <div class="card p-4">
+        <h2 class="h4 mb-4">Liste des Membres</h2>
+        <div class="mb-3">
+          <label for="filterRole" class="form-label">Filtrer par rôle</label>
+          <select id="filterRole" class="form-select" onchange="filterMembers()"></select>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-dark table-striped">
+            <thead id="membersHead"></thead>
+            <tbody id="membersTable"></tbody>
+          </table>
+        </div>
       </div>
     </section>
 
-    <section id="rules" class="card p-6">
-      <h2 class="text-xl font-bold mb-4">Règles du Clan</h2>
-      <ul class="list-disc pl-6 space-y-2 text-sm">
-        <li>Respect, entraide, et participation active obligatoire.</li>
-        <li>Attaques obligatoires en guerre.</li>
-        <li>Dons réguliers demandés pour tous les membres.</li>
-        <li>Déconnexion longue sans prévenir = exclusion.</li>
-        <li>Suivre les instructions des chefs pour les attaques de guerre.</li>
-      </ul>
+    <section id="wars" class="mb-5">
+      <div class="card p-4">
+        <h2 class="h4 mb-4">Historique des Guerres</h2>
+        <div class="table-responsive">
+          <table class="table table-dark table-striped">
+            <thead id="warsHead"></thead>
+            <tbody id="warsTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="rules">
+      <div class="card p-4">
+        <h2 class="h4 mb-4">Règles du Clan</h2>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item bg-transparent text-white">Respect, entraide, et participation active obligatoire.</li>
+          <li class="list-group-item bg-transparent text-white">Attaques obligatoires en guerre.</li>
+          <li class="list-group-item bg-transparent text-white">Dons réguliers demandés pour tous les membres.</li>
+          <li class="list-group-item bg-transparent text-white">Déconnexion longue sans prévenir = exclusion.</li>
+          <li class="list-group-item bg-transparent text-white">Suivre les instructions des chefs pour les attaques de guerre.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="stats" class="mt-5">
+      <div class="card p-4">
+        <h2 class="h4 mb-4">Statistiques globales</h2>
+        <canvas id="contribChart" height="100"></canvas>
+      </div>
     </section>
   </main>
 
   <script>
+    let membersGlobal = [];
+
     async function loadCSV(url) {
       const response = await fetch(url);
       const text = await response.text();
@@ -87,40 +118,65 @@
       return { headers, data };
     }
 
+    function filterMembers() {
+      const role = document.getElementById("filterRole").value;
+      const table = document.getElementById("membersTable");
+      const headers = Object.keys(membersGlobal[0]);
+      table.innerHTML = membersGlobal.filter(m => role === "" || m.Role === role).map(row => {
+        return "<tr>" + headers.map(h => h === "TH"
+          ? `<td><img src='assets/hdv/hdv-${row[h]}.png' class='hdv-img' /></td>`
+          : `<td>${row[h]}</td>`).join("") + "</tr>";
+      }).join("");
+    }
+
     async function renderTables() {
-      const membersURL = "data/membres.csv";
-      const warsURL = "data/guerres.csv";
-      const { headers: memberHeaders, data: members } = await loadCSV(membersURL);
-      const { headers: warHeaders, data: wars } = await loadCSV(warsURL);
+      const { headers: memberHeaders, data: members } = await loadCSV("data/membres.csv");
+      const { headers: warHeaders, data: wars } = await loadCSV("data/guerres.csv");
 
-      document.getElementById("membersHead").innerHTML =
-        "<tr>" + memberHeaders.map(h => `<th class='p-2 border'>${h}</th>`).join("") + "</tr>";
-      document.getElementById("membersTable").innerHTML =
-        members.map(row => {
-          return "<tr>" + memberHeaders.map(h => {
-            if (h === "TH") {
-              return `<td class='p-2 border'><img src="assets/hdv/hdv-${row[h]}.png" alt="HDV ${row[h]}" class="w-8 h-8 mx-auto" /></td>`;
-            }
-            return `<td class='p-2 border'>${row[h]}</td>`;
-          }).join("") + "</tr>";
-        }).join("");
+      membersGlobal = members;
 
-      document.getElementById("warsHead").innerHTML =
-        "<tr>" + warHeaders.map(h => `<th class='p-2 border'>${h}</th>`).join("") + "</tr>";
-      document.getElementById("warsTable").innerHTML =
-        wars.map(row => "<tr>" + warHeaders.map(h => `<td class='p-2 border'>${row[h]}</td>`).join("") + "</tr>").join("");
+      document.getElementById("membersHead").innerHTML = "<tr>" + memberHeaders.map(h => `<th>${h}</th>`).join("") + "</tr>";
+
+      const roles = [...new Set(members.map(m => m.Role))];
+      document.getElementById("filterRole").innerHTML = `<option value="">Tous</option>` + roles.map(r => `<option value="${r}">${r}</option>`).join("");
+
+      filterMembers();
+
+      document.getElementById("warsHead").innerHTML = "<tr>" + warHeaders.map(h => `<th>${h}</th>`).join("") + "</tr>";
+      document.getElementById("warsTable").innerHTML = wars.map(row => "<tr>" + warHeaders.map(h => `<td>${row[h]}</td>`).join("") + "</tr>").join("");
 
       const clanInfo = document.getElementById("clanInfo");
       const leader = members.find(m => m.Role?.toLowerCase().includes("leader"));
       if (leader) {
         clanInfo.innerHTML = `
-          <div><strong>Chef :</strong> ${leader.Name}</div>
-          <div><strong>Membres :</strong> ${members.length}</div>
-          <div><strong>Niveau moyen :</strong> ${
-            Math.round(members.reduce((a, m) => a + (parseInt(m.Level)||0), 0) / members.length)
-          }</div>`;
+          <div class="col-md-4"><strong>Chef :</strong> ${leader.Name}</div>
+          <div class="col-md-4"><strong>Membres :</strong> ${members.length}</div>
+          <div class="col-md-4"><strong>Niveau moyen :</strong> ${Math.round(members.reduce((a, m) => a + (parseInt(m.Level)||0), 0) / members.length)}</div>`;
       }
+
+      const contribChart = document.getElementById("contribChart");
+      const ctx = contribChart.getContext('2d');
+      const top = members.sort((a,b) => b["Total Contribution"] - a["Total Contribution"]).slice(0, 10);
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: top.map(m => m.Name),
+          datasets: [{
+            label: 'Contribution Capitale',
+            data: top.map(m => parseInt(m["Total Contribution"] || 0)),
+            backgroundColor: 'rgba(75,192,192,0.6)'
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+            title: { display: true, text: 'Top 10 Contributions' }
+          }
+        }
+      });
     }
+
     renderTables();
   </script>
 </body>
