@@ -1,16 +1,2 @@
-"Date end",Size,"Clan tag","Clan name","Clan stars","Clan destruction","Opponent tag","Opponent name","Opponent stars","Opponent destruction",Result
-"2025-07-29 09:25:14",10,#2J0CPLR8L,"Fureur Royale 2",0,0,#2RY2PVLGR,"Fighter ID",0,0,
-"2025-07-27 09:45:58",10,#2J0CPLR8L,"Fureur Royale 2",20,80.9,#2JC9LL8G2,"Fury of Shadows",29,97,lose
-"2025-07-25 10:05:55",5,#2J0CPLR8L,"Fureur Royale 2",14,98.4,#CGYJ2QRQ,"ROYAL KINGS",14,97.2,win
-"2025-07-23 09:17:49",5,#2J0CPLR8L,"Fureur Royale 2",13,96.4,#2G2L0QLPY,"S A L A W A K U",12,90.8,win
-"2025-07-20 09:25:19",5,#2J0CPLR8L,"Fureur Royale 2",13,96.8,#2JCPP09L8,"AC Group",15,100,lose
-"2025-07-14 08:10:08",5,#2J0CPLR8L,"Fureur Royale 2",10,79.8,#2PQ0LQCGQ,Indo•Pride™Evos,14,95.2,lose
-"2025-07-01 08:19:11",10,#2J0CPLR8L,"Fureur Royale 2",26,97.9,#2PPUYL2QY,"♥♥♥( -_• ) ♥♥♥y",29,98.6,lose
-"2025-06-29 06:49:14",15,#2J0CPLR8L,"Fureur Royale 2",44,99.2,#2JPQCL2Y9,Myanmar(007),43,99.13333,win
-"2025-06-26 23:27:21",15,#2J0CPLR8L,"Fureur Royale 2",43,94.86667,#2RQVG80UP,"Distrito 7",39,92.26667,win
-"2025-06-24 21:49:26",15,#2J0CPLR8L,"Fureur Royale 2",41,94,#2RG298LCJ,"PiiBaa Gang",36,85.13333,win
-"2025-06-21 19:36:16",15,#2J0CPLR8L,"Fureur Royale 2",41,95.8,#2J22QLU00,"غيوم الرحمه.",40,93.666664,win
-"2025-06-19 17:52:07",10,#2J0CPLR8L,"Fureur Royale 2",27,92.2,#2RJYRYUJ8,Jangawar,30,100,lose
-"2025-06-17 14:09:19",10,#2J0CPLR8L,"Fureur Royale 2",26,89.6,#2J09LQLJL,lalu,28,95.2,lose
-"2025-06-14 19:27:39",10,#2J0CPLR8L,"Fureur Royale 2",28,95.1,#2GC0VUQJP,Ssc,27,96.8,win
-"2025-06-12 19:57:06",5,#2J0CPLR8L,"Fureur Royale 2",15,100,#2Y9VY9Y88,"ottaman empire",0,0,win
+Date,Opponent,Result,Stars,Destruction
+2025-07-25,Les Foudres,Victoire,28,94%

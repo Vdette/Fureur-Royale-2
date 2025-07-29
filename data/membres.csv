@@ -1,19 +1,2 @@
-Ranking,Tag,Name,TH,BH,Level,League,"League (builder base)",Trophies,"Trophies (builder base)",Role,"Capital Level","Total Contribution","Troops donated","Troops received"
-1,#98VGQV8CG,V!cky,12,7,140,"Master League II","Brass League I",2842,2416,Co-leader,44,361070,1307,72
-2,#8G9UYQ88Y,"mini mpc",12,6,105,"Master League II","Copper League I",2773,1960,Co-leader,20,95287,324,102
-3,#GP929JLQR,cha,11,6,88,"Crystal League I","Brass League III",2514,2161,Member,12,56844,269,438
-4,#LJQLUJ2RJ,alexjeg11,12,8,130,"Crystal League I","Brass League II",2379,2247,Member,17,82100,0,412
-5,#GGCQ0C2VR,proxx13,12,6,54,"Crystal League II","Stone League I",2280,1442,Co-leader,8,39659,633,474
-6,#G9UP99VUV,Timmy,10,5,74,"Crystal League III","Copper League IV",2089,1685,Elder,13,64631,215,186
-7,#8LJJUYQ2V,BabyMonster,11,6,129,"Crystal League III","Copper League I",1989,1935,Member,22,112161,0,67
-8,#GRCQJRQLU,arone200,10,4,70,"Gold League I","Clay League II",1851,844,Member,12,55881,37,66
-9,#GUU92YQJY,Haise,9,5,53,"Gold League I","Stone League IV",1785,1158,Member,1,600,30,18
-10,#GV8GPG2RG,lawiss,9,4,59,"Gold League I","Stone League IV",1742,1104,Member,3,13016,0,225
-11,#GQJJ2ULY0,krokette,10,5,69,"Gold League III","Stone League IV",1425,1164,Member,25,141690,0,0
-12,#QUG0RJUP2,Mitrox2.0,9,3,62,"Silver League I","Clay League IV",1359,668,Leader,12,57791,159,31
-13,#8GJUL2RLG,"mini mpc 2.0",9,5,55,"Silver League I","Stone League II",1341,1385,Member,8,39237,36,0
-14,#LJ82R0920,vicky,10,5,80,"Silver League II","Copper League III",1171,1778,Member,22,119287,62,0
-15,#G8299LCP2,19‼️,10,5,74,"Silver League II","Copper League IV",1162,1621,Member,34,235558,0,65
-16,#QC89L2RU2,slowz_QC,11,6,89,"Silver League II","Copper League I",1037,1961,Member,27,165938,30,0
-17,#LG0G8PQVL,LePunisher,6,3,28,"Bronze League I","Clay League II",710,881,Member,1,2277,0,30
-18,#YU9YCUUQ9,r422,6,3,18,,"Wood League I",342,489,Member,1,100,0,0
+Ranking,Tag,Name,TH,BH,Level,League,League (builder base),Trophies,Trophies (builder base),Role,Capital Level,Total Contribution,Troops donated,Troops received
+1,#98VGQV8CG,V!cky,12,7,140,Master League II,Brass League I,2842,2416,Co-leader,44,361070,1307,72
